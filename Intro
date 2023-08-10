@@ -1,0 +1,106 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+    int data;
+    struct node *link;
+};
+
+struct node *head = NULL;
+
+void traversal(struct node *ptr) {
+    while (ptr != NULL) {
+        printf("%d ", ptr->data);
+        ptr = ptr->link;
+    }
+}
+
+void insertbeg(int x) {
+    struct node *newnode = (struct node*) malloc(sizeof(struct node));
+    
+    newnode->data = x;
+    newnode->link = head; // Link the new node to the current head
+    
+    head = newnode; // Update the head to the new node
+}
+
+void deletebeg(){
+    struct node *temp;
+    temp=head;
+    head=head->link;
+    free(temp);
+}
+
+void deletend() {
+    if (head == NULL) {
+        printf("List is empty. Cannot delete.\n");
+        return;
+    }
+    struct node *temp = head;
+    struct node *prevnode = NULL;
+    
+    while (temp->link != NULL) {
+        prevnode = temp;
+        temp = temp->link;
+    }
+    if (prevnode != NULL) {
+        prevnode->link = NULL;
+    } 
+    else {
+        head = NULL; // If the list had only one node
+    }
+    free(temp);
+}
+
+
+int main() {
+    int ch, a;
+    while (1) {
+        printf("Press 1 to enter elements\n");
+        printf("Press 2 to display elements\n");
+        printf("Press 3 to delete from begining\n");
+        printf("Press 4 to delete from ending\n");
+        printf("Press 0 to exit\n");
+        printf("Enter choice--");
+        scanf("%d", &ch);
+        
+        switch (ch) {
+            case 1:
+                printf("Enter element to be inserted: ");
+                scanf("%d", &a);
+                insertbeg(a);
+                break;
+                
+            case 2:
+                printf("The elements are: ");
+                traversal(head);
+                printf("\n");
+                break;
+                
+            case 3:
+                printf("After deletion: ");
+                deletebeg();
+                traversal(head);
+                printf("\n");
+                break;
+                
+            case 4:
+                printf("After deletion: ");
+                deletend();
+                traversal(head);
+                printf("\n");
+                break; 
+                
+            case 0:
+                printf("Thank You!\n");
+                exit(0);
+                break;
+                
+            default:
+                printf("Wrong choice\n");
+                break;
+        }
+    }
+    
+    return 0;
+}
