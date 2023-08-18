@@ -1,4 +1,12 @@
-// Online C compiler to run C program online
+/* The Program to perform basic operations in a circular linked list-
+    1.Insertion(From Begining, end or at any position)
+    2.Deletion(From Begining, end or at any position)
+    3.Reversing the list
+@author- Swapnil Chatterjee(Code-Morpheus)
+date-17th August, 2023.
+verion-1.0
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 
