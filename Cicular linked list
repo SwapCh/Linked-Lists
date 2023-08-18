@@ -1,3 +1,4 @@
+// Online C compiler to run C program online
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -140,7 +141,17 @@ void display() {
 }
 
 void reverse(){
+    struct node *prev=0, *current=head, *next;
+    do{
+        next=current->link;
+        current->link=prev;
+        prev=current;
+        current=next;
+    }while(current!=head);
     
+    head->link=prev;
+    head=prev;
+    display();
 }
 
 void main() {
@@ -153,6 +164,7 @@ void main() {
         printf("Press 5 to delete from beginning\n");
         printf("Press 6 to delete from ending\n");
         printf("Press 7 to delete from any position\n");
+        printf("Press 8 to reverse list: \n");
         printf("Press 0 to exit\n");
         printf("Enter choice: ");
         scanf("%d", &ch);
@@ -191,6 +203,12 @@ void main() {
                 scanf("%d", &pos);
                 deleteFromPos(pos);
                 break;
+                
+            case 8:
+                printf("Reversed List: ");
+                reverse();
+                break;
+                
             case 0:
                 printf("Thank you!\n");
                 exit(0);
