@@ -1,0 +1,84 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+    int coef;
+    int power;
+    struct node* link;
+};
+
+struct node* head1 = NULL;
+struct node* head2 = NULL;
+struct node* head3 = NULL;
+
+void insert(int x, int p, struct node** head) {
+    struct node* newnode = (struct node*)malloc(sizeof(struct node));
+    newnode->coef = x;
+    newnode->link = NULL;
+    newnode->power = p;
+
+    if (*head == NULL) {
+        *head = newnode;
+        return;
+    }
+    struct node* temp = *head;
+    while (temp->link != NULL) {
+        temp = temp->link;
+    }
+    temp->link = newnode;
+}
+
+void display(struct node* ptr) {
+    while (ptr != NULL) {
+        if(ptr->coef!=0)
+        printf("%dx^%d", ptr->coef, ptr->power);
+        if (ptr->link != NULL) {
+            printf("+");
+        }
+        ptr = ptr->link;
+    }
+    printf("\n");
+}
+
+void displayAfterAdd(struct node* h1, struct node* h2) {
+    int x = 0, p = 0;
+    while (h1 != NULL) {
+        x = h1->coef + h2->coef;
+        insert(x, p, &head3);
+        h1 = h1->link;
+        h2 = h2->link;
+        p++;
+    }
+}
+
+int main() {
+    int item, x = 0;
+
+    printf("For equation 1:\n");
+    while (x < 3) {
+        printf("Enter coefficient for x^%d: ", x);
+        scanf("%d", &item);
+        insert(item, x, &head1);
+        x++;
+    }
+    printf("Given equation 1 is: ");
+    display(head1);
+
+    x = 0; // Reset x for equation 2
+
+    printf("\nFor equation 2:\n");
+    while (x < 3) {
+        printf("Enter coefficient for x^%d: ", x);
+        scanf("%d", &item);
+        insert(item, x, &head2);
+        x++;
+    }
+    printf("Given equation 2 is: ");
+    display(head2);
+
+    displayAfterAdd(head1, head2);
+    printf("\nResult after addition: ");
+    display(head3);
+
+    return 0;
+}
